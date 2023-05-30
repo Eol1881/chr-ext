@@ -1,15 +1,39 @@
 {
-  "name": "My Extension",
-  "version": "1.0",
-  "description": "Displays a button on top of a webpage",
-  "manifest_version": 2,
-  "permissions": [
-    "activeTab"
-  ],
+  "name": "Black Jack Card Tracking Helper",
+  "description": "lorum",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Show the buttons"
+  },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "run_at" : "document_start",
+      "css": ["styles.css"],
+      "js": ["before.js"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    },
+    {
+      "run_at" : "document_idle",
+      "js": ["after.js"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
     }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
   ]
 }
